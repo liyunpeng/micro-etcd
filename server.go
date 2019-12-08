@@ -24,23 +24,20 @@ func (s *Say) Hello(ctx context.Context, req *model.SayParam, rsp *model.SayResp
 }
 
 func main() {
-	// 我这里用的etcd 做为服务发现，如果使用consul可以去掉
 	reg := etcdv3.NewRegistry(func(op *registry.Options) {
 		op.Addrs = []string{
 			"http://192.168.3.34:2379", "http://192.168.3.18:2379", "http://192.168.3.110:2379",
 		}
 	})
 
-	// 初始化服务
 	service := micro.NewService(
 		micro.Name("lp.srv.eg1"),
 		micro.Registry(reg),
 	)
 	service.Init()
-	// 注册 Handler
+
 	model.RegisterSayHandler(service.Server(), new(Say))
 
-	// run server
 	if err := service.Run(); err != nil {
 		panic(err)
 	}
