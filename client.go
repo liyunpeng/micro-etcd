@@ -2,6 +2,9 @@ package main
 
 import (
 	"context"
+	"github.com/micro/go-micro/registry"
+	"github.com/micro/go-plugins/registry/etcdv3"
+	"github.com/micro/go-micro"
 	"github.com/micro/go-plugins/registry/etcdv3"
 	model "proto"
 	"fmt"
